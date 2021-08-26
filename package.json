@@ -1,5 +1,6 @@
 {
   "name": "@dylanarmstrong/crossword-svelte",
+  "homepage": "crossword",
   "license": "ISC",
   "version": "0.1.0",
   "private": true,
@@ -7,7 +8,7 @@
     "build": "rollup -c",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "dev": "rollup -c -w",
-    "fonts": "mkdir -p public/build/files && cp node_modules/@fontsource/*/files/*-{all,latin}-400-normal.woff* public/build/files",
+    "fonts": "mkdir -p public/crossword/build/files && cp node_modules/@fontsource/*/files/*-{all,latin}-400-normal.woff* public/crossword/build/files",
     "postinstall": "npm run fonts",
     "start": "sirv public --no-clear"
   },
