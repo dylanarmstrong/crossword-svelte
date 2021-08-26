@@ -125,6 +125,7 @@
     -webkit-font-smoothing: subpixel-antialiased;
     background: white;
     font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+    height: 1vh;
     letter-spacing: -.25px;
     margin: 10px 0 0;
   }
