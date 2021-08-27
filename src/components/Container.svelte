@@ -141,13 +141,13 @@
     }
   };
 
-  const onKeyEvent = (char: string) => {
+  const onMobileKeyEvent = (char: string) => {
     if (char) {
       onKeyDown({ key: char === 'CLEAR' ? 'BACKSPACE' : char});
     }
   };
 
-  keyEvent.subscribe(onKeyEvent);
+  keyEvent.subscribe(onMobileKeyEvent);
 </script>
 
 <div on:keydown={onKeyDown} tabIndex=0>
