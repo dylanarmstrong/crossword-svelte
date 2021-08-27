@@ -22,7 +22,7 @@
     isText,
   } from '../utils';
 
-  type FakeKeyEvent = {
+  type MobileKeyEvent = {
     key: string,
   }
 
@@ -94,7 +94,7 @@
     });
   };
 
-  const onKeyDown = (e: KeyboardEvent | FakeKeyEvent) => {
+  const onKeyDown = (e: KeyboardEvent | MobileKeyEvent) => {
     const key = e.key.toUpperCase();
 
     if (!isValidKey(key)) {
