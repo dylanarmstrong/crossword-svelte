@@ -1,11 +1,8 @@
 <script type='ts'>
-  import colors from '../colors';
   import { activeClue, mode, width } from '../stores';
 
   const style = `
-    background-color: ${colors.blue};
-    border-bottom: 2px solid ${colors.darkBlue};
-    width: ${$width * 25 - 20}px;
+    width: ${$width * 25}px;
   `;
 </script>
 
@@ -18,18 +15,11 @@
 
 <style>
   div {
-    padding: 10px;
-    background-color: blue;
+    background-color: rgb(var(--blue));
+    border-bottom: 2px solid rgb(var(--darkBlue));
     font-size: 16px;
-    margin-top: 5px;
     margin-bottom: 5px;
-    border-bottom: 2px solid blue;
-    display: block;
-  }
-
-  @media (min-width: 992px) {
-    div {
-      display: none;
-    }
+    margin-top: 5px;
+    padding: 10px;
   }
 </style>

@@ -1,5 +1,4 @@
 <script type='ts'>
-  import colors from '../colors';
   import { getCoord } from '../utils';
 
   export let mode: 'across' | 'down' = 'across';
@@ -17,10 +16,6 @@
   $: activeIndex = $activeClue[mode].index;
   $: isActiveMode = $storeMode === mode;
   $: displayClues = $clues[mode];
-
-  $: liStyle = isActiveMode
-    ? `background-color: ${colors.blue};`
-    : `background-color: ${colors.lightBlue}`;
 
   $: ulStyle = `
     height: ${$height * 25 - 22}px;
@@ -63,7 +58,7 @@
         <li
           bind:this={refs[index]}
           on:click={() => onClick(index)}
-          style={liStyle}
+          class={isActiveMode ? 'selected' : 'highlighted'}
         >
           <span>{index}.</span>
           <p>{clue}</p>
@@ -82,13 +77,19 @@
 {/if}
 
 <style>
+  li.selected {
+    background-color: rgb(var(--selected));
+  }
+  li.highlighted {
+    background-color: rgb(var(--highlighted));
+  }
   p {
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
   }
   span {
-    width: 25px;
     align-self: flex-start;
+    width: 25px;
   }
   li {
     cursor: pointer;
@@ -98,9 +99,9 @@
     width: 100%;
   }
   ul {
-    overflow-y: scroll;
     list-style: none;
     margin: 0;
+    overflow-y: scroll;
     padding-left: 0;
   }
 </style>

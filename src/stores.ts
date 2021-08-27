@@ -11,6 +11,7 @@ export const selected: Writable<Coord> = writable(null);
 export const mode: Writable<Mode> = writable('across');
 export const solved: Writable<Solved> = writable(null);
 export const ready: Writable<boolean> = writable(false);
+export const keyEvent: Writable<string> = writable(null);
 
 export const layer: Readable<Konva.Layer> = readable(new Konva.Layer());
 

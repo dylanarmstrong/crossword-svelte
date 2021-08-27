@@ -6,6 +6,7 @@
     layer,
     grid,
     height,
+    keyEvent,
     mode,
     selected,
     solved,
@@ -20,6 +21,10 @@
     isGroup,
     isText,
   } from '../utils';
+
+  type FakeKeyEvent = {
+    key: string,
+  }
 
   const getNextClue = (clueIndex: number): Cell => {
     for (let y = 0, yLen = $grid.length; y < yLen; y++) {
@@ -89,7 +94,7 @@
     });
   };
 
-  const onKeyDown = (e: KeyboardEvent) => {
+  const onKeyDown = (e: KeyboardEvent | FakeKeyEvent) => {
     const key = e.key.toUpperCase();
 
     if (!isValidKey(key)) {
@@ -135,6 +140,14 @@
       }
     }
   };
+
+  const onKeyEvent = (char: string) => {
+    if (char) {
+      onKeyDown({ key: char === 'CLEAR' ? 'BACKSPACE' : char});
+    }
+  };
+
+  keyEvent.subscribe(onKeyEvent);
 </script>
 
 <div on:keydown={onKeyDown} tabIndex=0>
@@ -163,12 +176,14 @@
 
   @media (min-width: 992px) {
     div {
+      margin: 1.5rem auto;
       max-width: 960px;
     }
   }
 
   @media (min-width: 1200px) {
     div {
+      margin: 3rem auto;
       max-width: 1140px;
     }
   }

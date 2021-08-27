@@ -2,7 +2,6 @@
   import type Konva from 'konva';
   import '@fontsource/raleway';
 
-  import type { Solved } from './types';
   import Active from './components/Active.svelte';
   import Byline from './components/Byline.svelte';
   import ClueContainer from './components/ClueContainer.svelte';
@@ -10,14 +9,20 @@
   import Container from './components/Container.svelte';
   import FileContainer from './components/FileContainer.svelte';
   import Header from './components/Header.svelte';
+  import Key from './components/Key.svelte';
+  import KeyboardContainer from './components/KeyboardContainer.svelte';
+  import Mobile from './components/Mobile.svelte';
   import Puzzle from './components/Puzzle.svelte';
   import PuzzleContainer from './components/PuzzleContainer.svelte';
   import Title from './components/Title.svelte';
+  import colors from './colors';
+  import type { Solved } from './types';
   import {
     filterValue,
     getCell,
     getCellByClue,
     getCoord,
+    hex,
     isGroup,
     isText,
   } from './utils';
@@ -33,16 +38,14 @@
     width,
   } from './stores';
 
-  // Set selected to first clue once the puzzle loads
-  valid.subscribe((v) => {
-    if (v) {
+  const onValid = (isValid: boolean) => {
+    if (isValid) {
       const { x, y } = getCoord(getCellByClue(1, $grid).cell, $width);
       selected.update(_ => ({ x, y }));
     }
-  });
+  };
 
-  // Check if there's a save for this puzzle's key
-  key.subscribe((k) => {
+  const onKey = (k: string) => {
     if (k) {
       const save: Solved | null = JSON.parse(localStorage.getItem(`solved-${k}`));
       if (save) {
@@ -55,17 +58,15 @@
         solved.update(_ => initialSolved);
       }
     }
-  });
+  };
 
-  // On any solved change, save in localStorage
-  solved.subscribe((newSolved: Solved) => {
+  const onSolved = (newSolved: Solved) => {
     if ($key) {
       localStorage.setItem(`solved-${$key}`, JSON.stringify(newSolved));
     }
-  });
+  };
 
-  // Once the puzzle is ready, set grid to $solved
-  ready.subscribe((isReady) => {
+  const onReady = (isReady: boolean) => {
     if (isReady) {
       for (let y = 0, yLen = $layer.children.length; y < yLen; y++) {
         const row = $layer.children[y];
@@ -87,8 +88,41 @@
         }
       }
     }
-  });
+  };
+
+  // Set selected to first clue once the puzzle loads
+  valid.subscribe(onValid);
+
+  // Check if there's a save for this puzzle's key in localStorage
+  key.subscribe(onKey);
+
+  // On any solved change, save in localStorage
+  solved.subscribe(onSolved);
+
+  // Once the puzzle is ready, set grid to $solved
+  ready.subscribe(onReady);
+
+  // For mobile keyboard
+  const keys = [
+    'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
+    'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'CLEAR'
+  ];
+
+  // Add colors to :root
+  const rootColors = Object
+    .keys(colors)
+    .map((key) => `--${key}:${hex(colors[key])};`)
+    .join('');
+
+  const el = document.createElement('style');
+  el.textContent = `:root{${rootColors}}`;
+  document.head.appendChild(el);
 </script>
+
+<svelte:head>
+  <link rel='stylesheet' href='/crossword/normalize.css'/>
+</svelte:head>
 
 <Container>
   <Header>
@@ -102,7 +136,14 @@
   {:else}
     <PuzzleContainer>
       <Puzzle/>
-      <Active/>
+      <Mobile>
+        <Active/>
+        <KeyboardContainer>
+          {#each keys as key}
+            <Key key={key}/>
+          {/each}
+        </KeyboardContainer>
+      </Mobile>
       <ClueContainer>
         <Clues slot='left' mode='across'>
           <Title first>
@@ -118,15 +159,3 @@
     </PuzzleContainer>
   {/if}
 </Container>
-
-<style>
-  :global(body) {
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: subpixel-antialiased;
-    background: white;
-    font-family: 'Raleway', 'Helvetica Neue', sans-serif;
-    height: 1vh;
-    letter-spacing: -.25px;
-    margin: 10px 0 0;
-  }
-</style>

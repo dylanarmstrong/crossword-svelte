@@ -2,21 +2,20 @@
   import parse from '@dylanarmstrong/puz';
   import { onMount } from 'svelte';
 
-  import colors from '../colors';
   import { puz } from '../stores';
 
   const onDragEnter = (
     e: DragEvent,
   ) => {
     const target = e.target as HTMLDivElement;
-    target.style.borderColor = 'blue'
+    target.style.borderColor = 'rgb(var(--darkBlue))';
   };
 
   const onDragLeave = (
     e: DragEvent,
   ) => {
     const target = e.target as HTMLDivElement;
-    target.style.borderColor = 'black'
+    target.style.borderColor = 'rgb(var(--gray))';
   };
 
   const reader = new FileReader();
@@ -48,13 +47,12 @@
 
   let el: HTMLElement | undefined;
   let innerHeight: number;
-  $: style = `color: ${colors.black}`;
+  $: style = '';
   const setHeight = () => {
     if (el) {
       style = `
         height: ${innerHeight - el.getBoundingClientRect().top * 2}px;
         visibility: visible;
-        color: ${colors.black};
       `;
     }
   };
@@ -83,8 +81,11 @@
 <style>
   div {
     align-items: center;
-    background-color: #fafafa;
-    border: 5px dashed #1f1f1f;
+    background-color: rgb(var(--white));
+    border-radius: var(--borderRadius);
+    border: 1px solid rgb(var(--gray));
+    box-shadow: 1px 2px 2px rgba(var(--pink), 0.1);
+    color: rgb(var(--black));
     display: flex;
     font-size: 2.5rem;
     justify-content: center;
@@ -92,5 +93,12 @@
     text-align: center;
     visibility: hidden;
     width: 95%;
+  }
+
+  input {
+    border-radius: var(--borderRadius);
+    border: 1px solid rgb(var(--gray));
+    box-shadow: 1px 2px 2px rgba(var(--pink), 0.1);
+    padding: 0.5rem;
   }
 </style>

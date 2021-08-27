@@ -73,3 +73,11 @@ export const getCellByClue = (
   }
   return null;
 };
+
+// Convert hex to rgb
+export const hex = (hex: string) => {
+  const r = Number.parseInt(`0x${hex[1]}${hex[2]}`, 16);
+  const g = Number.parseInt(`0x${hex[3]}${hex[4]}`, 16);
+  const b = Number.parseInt(`0x${hex[5]}${hex[6]}`, 16);
+  return `${r},${g},${b}`;
+};
