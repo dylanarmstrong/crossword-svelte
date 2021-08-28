@@ -150,7 +150,10 @@
   keyEvent.subscribe(onMobileKeyEvent);
 </script>
 
-<div on:keydown={onKeyDown} tabIndex=0>
+<div
+  on:keydown={onKeyDown}
+  tabIndex=0
+>
   <slot/>
 </div>
 

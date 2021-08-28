@@ -43,7 +43,7 @@
   };
 
   activeClue.subscribe((activeClues) => {
-    const index = activeClues[mode].index;
+    const index = activeClues?.[mode].index;
     const ref = refs[index];
     if (ref) {
       ref.scrollIntoViewIfNeeded();
