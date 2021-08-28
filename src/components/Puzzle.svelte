@@ -1,6 +1,6 @@
 <script lang='ts'>
   import Konva from 'konva';
-  import { onDestroy, onMount } from 'svelte';
+  import { onMount } from 'svelte';
 
   import type { Mode } from '../types';
   import {
@@ -70,24 +70,19 @@
   let oldX = $selected.x;
   let oldY = $selected.y;
   const updateSelected = ({ x, y }) => {
-    const oldGridCell = $grid?.[oldY]?.[oldX];
-    if (oldGridCell) {
-      highlight(oldGridCell[$mode].cells, colors.white);
-    }
+    const oldGridCell = $grid[oldY][oldX];
+    highlight(oldGridCell[$mode].cells, colors.white);
 
-    const gridCell = $grid?.[y]?.[x];
-    if (gridCell) {
-      highlight(gridCell[$mode].cells, colors.highlighted);
-      highlight([gridCell.cell], colors.selected);
-    }
+    const gridCell = $grid[y][x];
+    highlight(gridCell[$mode].cells, colors.highlighted);
+    highlight([gridCell.cell], colors.selected);
 
     oldX = x;
     oldY = y;
   };
 
-  let stage: Konva.Stage;
   onMount(() => {
-    stage = new Konva.Stage({
+    const stage = new Konva.Stage({
       container: stageElement,
       width: $height * $cellSize,
       height: $width * $cellSize,
@@ -186,11 +181,6 @@
     mode.subscribe(updateMode);
     selected.subscribe(updateSelected);
     ready.update(_ => true);
-  });
-
-  onDestroy(() => {
-    stage.destroy();
-    layer.update(_ => new Konva.Layer());
   });
 </script>
 
