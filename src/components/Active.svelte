@@ -1,8 +1,8 @@
-<script type='ts'>
-  import { activeClue, mode, width } from '../stores';
+<script lang='ts'>
+  import { activeClue, cellSize, mode, width } from '../stores';
 
   const style = `
-    width: ${$width * 25}px;
+    width: ${$width * $cellSize}px;
   `;
 </script>
 

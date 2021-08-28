@@ -8,8 +8,8 @@
 
 <style>
 h5 {
-  margin: 0;
-  margin-bottom: 0.5rem;
+  margin: 0 auto 0.5rem;
+  width: 95%;
 }
 </style>
 

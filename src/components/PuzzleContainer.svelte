@@ -1,5 +1,5 @@
 <script>
-  import { width } from '../stores.ts';
+  import { cellSize, width } from '../stores.ts';
 
   const getWidth = () => Number.parseInt(
     window
@@ -12,7 +12,7 @@
 
   // Svelte doesn't allow dynamic styles
   $: style = windowWidth > 1200
-    ? `grid-template-columns: calc(${$width} * 25px) auto auto`
+    ? `grid-template-columns: calc(${$width} * ${$cellSize}px) auto auto`
     : undefined;
 </script>
 
@@ -27,11 +27,19 @@
     display: grid;
     grid-template-columns: auto;
     grid-column-gap: 10px;
+    margin: 0 auto;
+    width: 100%;
   }
 
   @media print {
     div {
       grid-template-columns: auto;
+    }
+  }
+
+  @media (min-width: 992px) {
+    div {
+      width: 95%;
     }
   }
 </style>

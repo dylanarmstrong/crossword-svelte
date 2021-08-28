@@ -4,6 +4,7 @@
 
   import type { Mode } from '../types';
   import {
+    cellSize,
     grid,
     height,
     layer,
@@ -83,8 +84,8 @@
   onMount(() => {
     const stage = new Konva.Stage({
       container: stageElement,
-      width: $height * 25,
-      height: $width * 25,
+      width: $height * $cellSize,
+      height: $width * $cellSize,
     });
     for (let y = 0; y < $height; y++) {
       const group = new Konva.Group();
@@ -118,10 +119,10 @@
             fill,
             stroke: colors.black,
             strokeWidth: 1,
-            height: 25,
-            width: 25,
-            x: x * 25,
-            y: y * 25,
+            height: $cellSize,
+            width: $cellSize,
+            x: x * $cellSize,
+            y: y * $cellSize,
           });
           group.add(rect);
 
@@ -139,8 +140,8 @@
               fontSize: 8,
               offsetX: -1,
               text: String(clueIndex),
-              x: x * 25,
-              y: y * 25,
+              x: x * $cellSize,
+              y: y * $cellSize,
             });
             group.add(text);
           }
@@ -160,12 +161,12 @@
               fontFamily: 'Raleway',
               fontSize: 20,
               fontVariant: 'small-caps',
-              height: 25,
+              height: $cellSize,
               text: value,
               verticalAlign: 'middle',
-              width: 25,
-              x: x * 25,
-              y: y * 25 + 4,
+              width: $cellSize,
+              x: x * $cellSize,
+              y: y * $cellSize + 4,
             });
             text.on('mousedown', onMouseDown);
             text.on('touchend', onMouseDown);

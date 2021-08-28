@@ -6,6 +6,11 @@ import { derived, readable, writable } from 'svelte/store';
 
 import type { ActiveClue, Clues, Coord, Mode, Solved } from './types';
 
+// This may change in the future based on screen size
+// So putting it here in case I want to flip to a
+// Writable<number>
+export const cellSize: Readable<number> = readable(25);
+
 export const puz: Writable<Puz> = writable(null);
 export const selected: Writable<Coord> = writable(null);
 export const mode: Writable<Mode> = writable('across');

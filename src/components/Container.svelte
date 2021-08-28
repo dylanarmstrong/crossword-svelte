@@ -156,10 +156,10 @@
 
 <style>
   div {
-    width: 95%;
-    margin: 0 auto;
     height: 100%;
+    margin: 0.5rem auto;
     outline: none;
+    width: 100%;
   }
 
   @media (min-width: 576px) {
@@ -178,6 +178,7 @@
     div {
       margin: 1.5rem auto;
       max-width: 960px;
+      width: 95%;
     }
   }
 

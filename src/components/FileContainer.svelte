@@ -46,12 +46,11 @@
   };
 
   let el: HTMLElement | undefined;
-  let innerHeight: number;
   $: style = '';
   const setHeight = () => {
     if (el) {
       style = `
-        height: ${innerHeight - el.getBoundingClientRect().top * 2}px;
+        height: ${window.innerHeight - el.getBoundingClientRect().top * 2}px;
         visibility: visible;
       `;
     }
@@ -61,7 +60,9 @@
   });
 </script>
 
-<svelte:window bind:innerHeight={innerHeight} on:resize={setHeight}/>
+<svelte:window
+  on:resize={setHeight}
+/>
 
 <input
   on:change={readPuz}
@@ -75,10 +76,17 @@
   on:drop|preventDefault={onDrop}
   style={style}
 >
-  <slot/>
+  Drag & Drop .puz File Here
 </div>
 
 <style>
+  div,
+  input {
+    display: flex;
+    margin: 0.5rem auto 0.25rem;
+    width: 95%;
+  }
+
   div {
     align-items: center;
     background-color: rgb(var(--white));
@@ -86,13 +94,10 @@
     border: 1px solid rgb(var(--gray));
     box-shadow: 1px 2px 2px rgba(var(--pink), 0.1);
     color: rgb(var(--black));
-    display: flex;
     font-size: 2.5rem;
     justify-content: center;
-    margin-top: 5px;
     text-align: center;
     visibility: hidden;
-    width: 95%;
   }
 
   input {
@@ -100,5 +105,8 @@
     border: 1px solid rgb(var(--gray));
     box-shadow: 1px 2px 2px rgba(var(--pink), 0.1);
     padding: 0.5rem;
+  }
+
+  @media (min-width: 992px) {
   }
 </style>

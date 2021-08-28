@@ -1,10 +1,11 @@
-<script type='ts'>
+<script lang='ts'>
   import { getCoord } from '../utils';
 
   export let mode: 'across' | 'down' = 'across';
 
   import {
     activeClue,
+    cellSize,
     clues,
     grid,
     height,
@@ -18,7 +19,7 @@
   $: displayClues = $clues[mode];
 
   $: ulStyle = `
-    height: ${$height * 25 - 22}px;
+    height: ${$height * $cellSize - 22}px;
   `;
 
   const refs = [];

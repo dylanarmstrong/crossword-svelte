@@ -27,6 +27,7 @@
     isText,
   } from './utils';
   import {
+    cellSize,
     grid,
     height,
     layer,
@@ -125,14 +126,10 @@
 </svelte:head>
 
 <Container>
-  <Header>
-    Crossword
-  </Header>
+  <Header/>
   <Byline/>
   {#if !$valid}
-    <FileContainer>
-      Drag & Drop .puz File Here
-    </FileContainer>
+    <FileContainer/>
   {:else}
     <PuzzleContainer>
       <Puzzle/>
