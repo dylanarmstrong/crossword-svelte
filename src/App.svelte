@@ -27,7 +27,6 @@
     isText,
   } from './utils';
   import {
-    cellSize,
     grid,
     height,
     layer,
