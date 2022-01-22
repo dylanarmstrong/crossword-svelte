@@ -41,8 +41,7 @@
   };
 
   const onMouseDown = (
-    e: Konva.KonvaEventObject<MouseEvent>
-       | Konva.KonvaEventObject<TouchEvent>,
+    e: Konva.KonvaEventObject<MouseEvent> | Konva.KonvaEventObject<TouchEvent>,
   ) => {
     e.cancelBubble = true;
     const { x, y } = e.target.attrs.$internal;
